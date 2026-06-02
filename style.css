@@ -375,11 +375,11 @@ section{
 }*/
 
 .portfolio-img{
-    background-image:url('img/portfolio.png');
+    background-image:url('Imagenes/Portfolio IMG.png');
 }
 
 .calc-img{
-    background-image:url('img/calculadora.png');
+    background-image:url('Imagenes/CALCU.png');
 }
 
 .cashless-img{
@@ -387,12 +387,12 @@ section{
 }
 
 .landing-img{
-    background-image: url('img/cashless.png');
+    background-image: url('Imagenes/Matech.png');
 }
 
 .project-image{
     width:100%;
-    height:220px;
+    height:200px;
 
     border-radius:20px;
 
