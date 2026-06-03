@@ -880,14 +880,14 @@ section::after{
         display: none !important;
     }
 
-    /* Transformación de la barra de navegación en un menú desplegable de pantalla completa */
+    /* Menú desplegable a pantalla completa */
     .nav-links {
         position: fixed !important;
         top: 0;
-        right: -100% !important; /* Escondido por defecto a la derecha */
+        right: -100% !important;
         width: 100% !important;
         height: 100vh !important;
-        background: rgba(7, 7, 11, 0.98) !important; /* Fondo ultra oscuro translúcido */
+        background: rgba(7, 7, 11, 0.98) !important;
         backdrop-filter: blur(25px) !important;
         -webkit-backdrop-filter: blur(25px) !important;
         
@@ -906,12 +906,12 @@ section::after{
         font-weight: 600;
     }
 
-    /* ACCIÓN INTERACTIVA: Cuando marcas el menú, este aparece */
+    /* Control de apertura del menú hamburguesa */
     .menu-toggle:checked ~ .nav-links {
         right: 0 !important;
     }
 
-    /* ANIMACIÓN DEL ÍCONO DE HAMBURGUESA A "X" */
+    /* Animación del ícono a "X" */
     .menu-toggle:checked ~ .menu-icon span:nth-child(1) {
         transform: translateY(8px) rotate(135deg);
         background: var(--gold);
@@ -927,7 +927,7 @@ section::after{
         background: var(--gold);
     }
 
-    /* SOLUCIÓN AL BADGE: Se adapta el tamaño y espaciado para que no se deforme */
+    /* Adaptación del Badge del Hero */
     .hero-badge {
         font-size: 13px !important;
         padding: 8px 14px !important;
@@ -937,7 +937,7 @@ section::after{
     }
 
     .hero-left h1 {
-        font-size: 38px !important; /* Escala el título principal para celular */
+        font-size: 38px !important;
         margin: 20px 0;
     }
 
@@ -946,60 +946,113 @@ section::after{
         font-size: 32px !important;
     }
 
-    /* Grillas a una sola columna vertical limpia */
+    /* Reestructuración de Grillas Generales */
     .timeline-card {
         grid-template-columns: 1fr !important;
         gap: 20px;
         padding: 30px;
     }
 
-    .projects-grid,
     .about-grid,
     .skills-grid {
         grid-template-columns: 1fr !important;
     }
 
-    /* SOLUClÓN DEFINITIVA A LAS IMÁGENES: Ajuste milimétrico para celular */
-    .project-imag{
-        width: 100%;
-        height: 600px;
-        /* Propiedades clave de renderizado */
-        background-size: cover !important; /* Fuerza a que la imagen cubra el espacio sin achicarse */
-        background-position: center !important; /* Centra el foco de la foto para que no se corte lo importante */
-        background-repeat: no-repeat !important;
-        
-        /* Reseteos de herencia */
-        margin-top: 0 !important;
-        margin-bottom: 20px !important;
-        border-radius: 20px !important;
+    /* ==========================================================================
+       REDISEÑO EXHAUSTIVO DE LA SECCIÓN DE PROYECTOS EN CELULARES
+       ========================================================================== */
+    
+    /* 1. Forzar a que la grilla ocupe una sola columna real y limpia */
+    .projects-grid {
+        grid-template-columns: 1fr !important;
+        gap: 35px !important; /* Espaciado generoso entre tarjetas */
     }
 
-    .project-image, 
-    .project-im {
-        display: block !important;
-        width: 100% !important;
-        height: 400px !important; /* Altura física ideal en pantallas táctiles */
-        
-        /* Propiedades clave de renderizado */
-        background-size: cover !important; /* Fuerza a que la imagen cubra el espacio sin achicarse */
-        background-position: center !important; /* Centra el foco de la foto para que no se corte lo importante */
-        background-repeat: no-repeat !important;
-        
-        /* Reseteos de herencia */
-        margin-top: 0 !important;
-        margin-bottom: 20px !important;
-        border-radius: 20px !important;
-    }
-
-    /* Corrección del contenedor de la tarjeta para que no asfixie a la imagen */
+    /* 2. Rediseño del contenedor de la tarjeta */
     .project-card {
         display: flex !important;
         flex-direction: column !important;
-        justify-content: space-between !important;
-        padding: 25px !important; /* Reduce levemente el padding interno en celular para dar más aire a la foto */
-        height: auto !important;
+        padding: 20px !important; /* Reducimos el padding excesivo de PC para dar espacio a la imagen */
+        height: auto !important; /* Permitimos que crezca de acuerdo al contenido */
+        overflow: hidden !important;
     }
 
+    /* 3. PARCHE MAESTRO PARA TODAS LAS IMÁGENES (.project-image, .project-im, .project-imag) */
+    .project-image, 
+    .project-im, 
+    .project-imag {
+        /* Desactivar cualquier propiedad física rígida de PC */
+        width: 100% !important;
+        min-width: 100% !important;
+        max-width: 100% !important;
+        
+        /* Establecer una relación de aspecto perfecta para celulares */
+        height: 200px !important; 
+        min-height: 200px !important;
+        max-height: 200px !important;
+        
+        /* Ajuste de comportamiento de la imagen de fondo */
+        background-size: cover !important; /* Recorta y expande proporcionalmente sin estirar */
+        background-position: center center !important; /* El centro de la captura se queda siempre visible */
+        background-repeat: no-repeat !important;
+        
+        /* Reseteo estético */
+        margin: 0 0 20px 0 !important; /* Elimina márgenes laterales raros y da aire abajo */
+        border-radius: 16px !important;
+        transform: none !important; /* Desactiva distorsiones */
+    }
+
+    /* Evitar que el efecto hover de PC rompa el Layout en pantallas táctiles */
+    .project-card:hover .project-image,
+    .project-card:hover .project-im,
+    .project-card:hover .project-imag {
+        transform: scale(1) !important; 
+    }
+
+    /* 4. Ajustes del bloque de texto e información del proyecto */
+    .project-info {
+        margin-top: 0 !important; /* Resetea el margen superior de PC */
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 10px !important;
+    }
+
+    .project-info h3 {
+        font-size: 22px !important;
+        text-align: center !important;
+    }
+
+    .project-info p {
+        font-size: 15px !important;
+        line-height: 1.6 !important;
+        margin: 10px 0 !important;
+    }
+
+    /* Botones de acción del proyecto (Visualizar / GitHub) */
+    .project-actions {
+        width: 100% !important;
+        margin-bottom: 8px !important;
+    }
+
+    .project-btn {
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        width: 100% !important;
+        padding: 14px 0 !important;
+        border-radius: 14px !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Tags de tecnologías usadas */
+    .project-tech {
+        justify-content: center !important; /* Centra los badges en celulares */
+        margin-top: 15px !important;
+    }
+
+    /* ========================================================================== */
+
+    /* Sección de contacto */
     .contact-links {
         flex-direction: column !important;
         gap: 15px;
@@ -1009,28 +1062,5 @@ section::after{
         width: 100%;
         text-align: center;
         display: block;
-    }
-}
-
-/* --- Ajuste fino para celulares muy angostos (Menores a 480px) --- */
-@media (max-width: 480px) {
-    .hero-left h1 {
-        font-size: 32px !important;
-    }
-
-    .hero-stats,
-    .hero-buttons {
-        flex-direction: column !important;
-        gap: 15px;
-    }
-
-    .btn-primary, 
-    .btn-secondary {
-        width: 100%;
-        text-align: center;
-    }
-    
-    section {
-        padding: 75px 0 !important; /* Reduce los espacios en blanco verticales */
     }
 }
