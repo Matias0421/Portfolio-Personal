@@ -959,14 +959,32 @@ section::after{
         grid-template-columns: 1fr !important;
     }
 
-    /* SOLUCIÓN A LAS IMÁGENES: Normaliza tus clases .project-image, .project-im y .project-imag */
+    /* SOLUClÓN DEFINITIVA A LAS IMÁGENES: Ajuste milimétrico para celular */
     .project-image, 
     .project-im, 
     .project-imag {
-        height: 210px !important; /* Altura ideal estándar para pantallas móviles */
+        display: block !important;
         width: 100% !important;
-        background-size: cover !important;
-        background-position: center !important;
+        height: 230px !important; /* Altura física ideal en pantallas táctiles */
+        
+        /* Propiedades clave de renderizado */
+        background-size: cover !important; /* Fuerza a que la imagen cubra el espacio sin achicarse */
+        background-position: center !important; /* Centra el foco de la foto para que no se corte lo importante */
+        background-repeat: no-repeat !important;
+        
+        /* Reseteos de herencia */
+        margin-top: 0 !important;
+        margin-bottom: 20px !important;
+        border-radius: 20px !important;
+    }
+
+    /* Corrección del contenedor de la tarjeta para que no asfixie a la imagen */
+    .project-card {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+        padding: 25px !important; /* Reduce levemente el padding interno en celular para dar más aire a la foto */
+        height: auto !important;
     }
 
     .contact-links {
