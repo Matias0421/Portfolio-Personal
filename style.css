@@ -962,7 +962,7 @@ section::after{
     /* SOLUClÓN DEFINITIVA A LAS IMÁGENES: Ajuste milimétrico para celular */
     .project-imag{
         width: 100%;
-        height: 200px;
+        height: 600px;
         /* Propiedades clave de renderizado */
         background-size: cover !important; /* Fuerza a que la imagen cubra el espacio sin achicarse */
         background-position: center !important; /* Centra el foco de la foto para que no se corte lo importante */
@@ -978,7 +978,7 @@ section::after{
     .project-im {
         display: block !important;
         width: 100% !important;
-        height: 290px !important; /* Altura física ideal en pantallas táctiles */
+        height: 400px !important; /* Altura física ideal en pantallas táctiles */
         
         /* Propiedades clave de renderizado */
         background-size: cover !important; /* Fuerza a que la imagen cubra el espacio sin achicarse */
