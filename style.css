@@ -782,7 +782,7 @@ section::after{
 }
 
 /* ==========================================================================
-   MENÚ HAMBURGUESA Y OPTIMIZACIÓN RESPONSIVE TOTAL (CORREGIDO)
+   MENÚ HAMBURGUESA Y OPTIMIZACIÓN RESPONSIVE TOTAL (CON PARCHES TÉCNICOS)
    ========================================================================== */
 
 /* Ocultar elementos de control del menú en pantallas de PC */
@@ -795,7 +795,7 @@ section::after{
 @media (max-width: 1100px) {
     .projects-grid,
     .about-grid {
-        grid-template-columns: repeat(2, 1fr) !important; /* Fuerza 2 columnas en vez de 1 */
+        grid-template-columns: repeat(2, 1fr) !important; /* Pasa de 3 a 2 columnas */
         gap: 25px;
     }
     
@@ -807,7 +807,7 @@ section::after{
 /* --- Adaptación para Pantallas Medianas (Menores a 992px) --- */
 @media (max-width: 992px) {
     .hero-container {
-        grid-template-columns: 1fr !important; /* El flujo del Hero pasa a ser vertical */
+        grid-template-columns: 1fr !important; /* Flujo vertical para el Hero */
         text-align: center;
         gap: 40px;
     }
@@ -821,36 +821,36 @@ section::after{
     }
 
     .hero-right {
-        order: -1 !important; /* Muestra tu tarjeta flotante arriba en dispositivos móviles */
+        order: -1 !important; /* Coloca tu tarjeta flotante arriba del texto */
         justify-content: center;
     }
 
     .hero-card {
         margin: 0 auto;
         max-width: 420px;
-        transform: translateY(0) !important; /* Evita que flote demasiado arriba tapando la navbar */
+        transform: translateY(0) !important; /* Evita que choque con la Navbar fija */
     }
 
     .hero-card-top {
         margin-left: 0 !important;
-        justify-content: center; /* Centra las esferas de diseño */
+        justify-content: center; /* Centra los círculos decorativos de la tarjeta */
     }
 
     .profile-frame {
         position: relative !important;
-        right: 0 !important; /* Remueve el desplazamiento de PC */
-        margin: 30px auto !important; /* Centra perfectamente tu foto */
+        right: 0 !important;
+        margin: 30px auto !important; /* Centra perfectamente tu foto de perfil */
     }
 
     .profile-frame img {
-        margin-left: 0 !important; /* Remueve el desplazamiento heredado */
+        margin-left: 0 !important; /* Corrige el desplazamiento de escritorio */
     }
 }
 
 /* --- Adaptación para Celulares y Menú Hamburguesa (Menores a 768px) --- */
 @media (max-width: 768px) {
     
-    /* Mostrar el ícono de hamburguesa en la barra superior */
+    /* Mostrar el ícono físico de la hamburguesa */
     .menu-icon {
         display: block !important;
         cursor: pointer;
@@ -860,7 +860,7 @@ section::after{
         z-index: 1002;
     }
 
-    /* Dibujar las 3 líneas físicas de la hamburguesa */
+    /* Estilos de las 3 barritas */
     .menu-icon span {
         display: block;
         position: absolute;
@@ -880,23 +880,22 @@ section::after{
         display: none !important;
     }
 
-    /* Transformar el menú horizontal en el desplegable móvil premium */
+    /* Transformación de la barra de navegación en un menú desplegable de pantalla completa */
     .nav-links {
         position: fixed !important;
         top: 0;
-        right: -100% !important; /* Oculto completamente a la derecha */
+        right: -100% !important; /* Escondido por defecto a la derecha */
         width: 100% !important;
         height: 100vh !important;
-        background: rgba(7, 7, 11, 0.97) !important; /* Oscuro premium de fondo */
+        background: rgba(7, 7, 11, 0.98) !important; /* Fondo ultra oscuro translúcido */
         backdrop-filter: blur(25px) !important;
         -webkit-backdrop-filter: blur(25px) !important;
         
-        /* Forzamos reajuste de Flexbox para apilar links verticalmente */
         display: flex !important;
         flex-direction: column !important;
         justify-content: center !important;
         align-items: center !important;
-        gap: 40px !important;
+        gap: 35px !important;
         
         transition: right 0.4s cubic-bezier(0.1, 0.9, 0.2, 1) !important;
         z-index: 1001 !important;
@@ -907,12 +906,12 @@ section::after{
         font-weight: 600;
     }
 
-    /* CONTROL DE ESTADO INTERACTIVO NATIVO */
+    /* ACCIÓN INTERACTIVA: Cuando marcas el menú, este aparece */
     .menu-toggle:checked ~ .nav-links {
-        right: 0 !important; /* Despliega el menú a pantalla completa */
+        right: 0 !important;
     }
 
-    /* TRANSLACIÓN ANIMADA DE HAMBURGUESA A "X" */
+    /* ANIMACIÓN DEL ÍCONO DE HAMBURGUESA A "X" */
     .menu-toggle:checked ~ .menu-icon span:nth-child(1) {
         transform: translateY(8px) rotate(135deg);
         background: var(--gold);
@@ -928,7 +927,26 @@ section::after{
         background: var(--gold);
     }
 
-    /* Forzar a una sola columna limpia en celulares */
+    /* SOLUCIÓN AL BADGE: Se adapta el tamaño y espaciado para que no se deforme */
+    .hero-badge {
+        font-size: 13px !important;
+        padding: 8px 14px !important;
+        display: inline-block !important;
+        line-height: 1.4 !important;
+        word-break: break-word !important;
+    }
+
+    .hero-left h1 {
+        font-size: 38px !important; /* Escala el título principal para celular */
+        margin: 20px 0;
+    }
+
+    .section-header h2,
+    .contact-card h2 {
+        font-size: 32px !important;
+    }
+
+    /* Grillas a una sola columna vertical limpia */
     .timeline-card {
         grid-template-columns: 1fr !important;
         gap: 20px;
@@ -941,23 +959,14 @@ section::after{
         grid-template-columns: 1fr !important;
     }
 
-    .hero-left h1 {
-        font-size: 42px !important; /* Escala el título para que no se desborde */
-    }
-
-    .section-header h2,
-    .contact-card h2 {
-        font-size: 34px !important;
-    }
-
-    /* Forzar simetría y adaptabilidad en imágenes de proyectos */
-    .project-imag, 
+    /* SOLUCIÓN A LAS IMÁGENES: Normaliza tus clases .project-image, .project-im y .project-imag */
+    .project-image, 
     .project-im, 
-    .project-image {
-        height: 220px !important;
+    .project-imag {
+        height: 210px !important; /* Altura ideal estándar para pantallas móviles */
         width: 100% !important;
-        background-size: cover;
-        background-position: center;
+        background-size: cover !important;
+        background-position: center !important;
     }
 
     .contact-links {
@@ -972,17 +981,13 @@ section::after{
     }
 }
 
-/* --- Ajuste fino para celulares muy chicos (Menores a 480px) --- */
+/* --- Ajuste fino para celulares muy angostos (Menores a 480px) --- */
 @media (max-width: 480px) {
     .hero-left h1 {
-        font-size: 34px !important;
+        font-size: 32px !important;
     }
 
-    .hero-stats {
-        flex-direction: column !important;
-        gap: 15px;
-    }
-
+    .hero-stats,
     .hero-buttons {
         flex-direction: column !important;
         gap: 15px;
@@ -995,6 +1000,6 @@ section::after{
     }
     
     section {
-        padding: 80px 0 !important; /* Optimiza los espacios verticales */
+        padding: 75px 0 !important; /* Reduce los espacios en blanco verticales */
     }
 }
