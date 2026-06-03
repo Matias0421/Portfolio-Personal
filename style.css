@@ -634,7 +634,7 @@ section{
 /*
 :root{
     --purple:#7c6cff;
-}*//*
+}*/
 .nav-links a:hover{
     color:var(--purple);
 }
@@ -782,7 +782,7 @@ section::after{
 }
 
 /* ==========================================================================
-   MENÚ HAMBURGUESA Y OPTIMIZACIÓN RESPONSIVE AUTOMÁTICA
+   MENÚ HAMBURGUESA Y OPTIMIZACIÓN RESPONSIVE TOTAL (CORREGIDO)
    ========================================================================== */
 
 /* Ocultar elementos de control del menú en pantallas de PC */
@@ -795,17 +795,21 @@ section::after{
 @media (max-width: 1100px) {
     .projects-grid,
     .about-grid {
-        grid-template-columns: repeat(2, 1fr); /* Pasa de 3 a 2 columnas */
-        gap: 20px;
+        grid-template-columns: repeat(2, 1fr) !important; /* Fuerza 2 columnas en vez de 1 */
+        gap: 25px;
+    }
+    
+    .skills-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
     }
 }
 
 /* --- Adaptación para Pantallas Medianas (Menores a 992px) --- */
 @media (max-width: 992px) {
     .hero-container {
-        grid-template-columns: 1fr; /* Flujo vertical para el Hero */
+        grid-template-columns: 1fr !important; /* El flujo del Hero pasa a ser vertical */
         text-align: center;
-        gap: 30px;
+        gap: 40px;
     }
 
     .hero-left p {
@@ -817,41 +821,53 @@ section::after{
     }
 
     .hero-right {
-        order: -1; /* Muestra tu tarjeta flotante arriba en dispositivos móviles */
+        order: -1 !important; /* Muestra tu tarjeta flotante arriba en dispositivos móviles */
+        justify-content: center;
     }
 
     .hero-card {
         margin: 0 auto;
-        max-width: 380px;
+        max-width: 420px;
+        transform: translateY(0) !important; /* Evita que flote demasiado arriba tapando la navbar */
+    }
+
+    .hero-card-top {
+        margin-left: 0 !important;
+        justify-content: center; /* Centra las esferas de diseño */
     }
 
     .profile-frame {
-        right: 0 !important; /* Centra la foto en tu tarjeta de presentación */
-        margin: 20px auto 0 !important;
+        position: relative !important;
+        right: 0 !important; /* Remueve el desplazamiento de PC */
+        margin: 30px auto !important; /* Centra perfectamente tu foto */
+    }
+
+    .profile-frame img {
+        margin-left: 0 !important; /* Remueve el desplazamiento heredado */
     }
 }
 
 /* --- Adaptación para Celulares y Menú Hamburguesa (Menores a 768px) --- */
 @media (max-width: 768px) {
     
-    /* Mostrar el ícono de hamburguesa */
+    /* Mostrar el ícono de hamburguesa en la barra superior */
     .menu-icon {
-        display: block;
+        display: block !important;
         cursor: pointer;
         position: relative;
-        width: 24px;
+        width: 26px;
         height: 18px;
         z-index: 1002;
     }
 
-    /* Dibujar las 3 líneas de la hamburguesa */
+    /* Dibujar las 3 líneas físicas de la hamburguesa */
     .menu-icon span {
         display: block;
         position: absolute;
         height: 2px;
         width: 100%;
         background: var(--white);
-        border-radius: 2px;
+        border-radius: 4px;
         transition: all 0.25s ease-in-out;
     }
 
@@ -859,40 +875,44 @@ section::after{
     .menu-icon span:nth-child(2) { top: 8px; }
     .menu-icon span:nth-child(3) { top: 16px; }
 
-    /* Ocultar el checkbox real */
+    /* Ocultar el checkbox de control */
     .menu-toggle {
-        display: none;
+        display: none !important;
     }
 
-    /* Transformar el menú horizontal en un desplegable de pantalla completa */
+    /* Transformar el menú horizontal en el desplegable móvil premium */
     .nav-links {
-        position: fixed;
+        position: fixed !important;
         top: 0;
-        right: -100%; /* Oculto por defecto fuera de la pantalla */
-        width: 100%;
-        height: 100vh;
-        background: rgba(7, 7, 11, 0.96); /* Mismo fondo oscuro de tu layout */
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 35px;
-        transition: right 0.4s cubic-bezier(0.1, 0.9, 0.2, 1);
-        z-index: 1001;
+        right: -100% !important; /* Oculto completamente a la derecha */
+        width: 100% !important;
+        height: 100vh !important;
+        background: rgba(7, 7, 11, 0.97) !important; /* Oscuro premium de fondo */
+        backdrop-filter: blur(25px) !important;
+        -webkit-backdrop-filter: blur(25px) !important;
+        
+        /* Forzamos reajuste de Flexbox para apilar links verticalmente */
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        gap: 40px !important;
+        
+        transition: right 0.4s cubic-bezier(0.1, 0.9, 0.2, 1) !important;
+        z-index: 1001 !important;
     }
 
     .nav-links a {
-        font-size: 20px;
+        font-size: 22px !important;
+        font-weight: 600;
     }
 
-    /* CUANDO EL CHECKBOX ESTÁ MARCADO: Desplegar menú lateral */
+    /* CONTROL DE ESTADO INTERACTIVO NATIVO */
     .menu-toggle:checked ~ .nav-links {
-        right: 0;
+        right: 0 !important; /* Despliega el menú a pantalla completa */
     }
 
-    /* ANIMACIÓN DE HAMBURGUESA A "X" */
+    /* TRANSLACIÓN ANIMADA DE HAMBURGUESA A "X" */
     .menu-toggle:checked ~ .menu-icon span:nth-child(1) {
         transform: translateY(8px) rotate(135deg);
         background: var(--gold);
@@ -908,55 +928,73 @@ section::after{
         background: var(--gold);
     }
 
-    /* Ajuste de grillas a una sola columna */
+    /* Forzar a una sola columna limpia en celulares */
     .timeline-card {
-        grid-template-columns: 1fr;
-        gap: 15px;
+        grid-template-columns: 1fr !important;
+        gap: 20px;
+        padding: 30px;
     }
 
     .projects-grid,
-    .about-grid {
-        grid-template-columns: 1fr;
+    .about-grid,
+    .skills-grid {
+        grid-template-columns: 1fr !important;
     }
 
-    /* Forzar simetría elástica en imágenes de proyectos */
+    .hero-left h1 {
+        font-size: 42px !important; /* Escala el título para que no se desborde */
+    }
+
+    .section-header h2,
+    .contact-card h2 {
+        font-size: 34px !important;
+    }
+
+    /* Forzar simetría y adaptabilidad en imágenes de proyectos */
     .project-imag, 
     .project-im, 
     .project-image {
-        height: 200px !important;
+        height: 220px !important;
         width: 100% !important;
         background-size: cover;
         background-position: center;
     }
 
     .contact-links {
-        flex-direction: column;
-        gap: 12px;
+        flex-direction: column !important;
+        gap: 15px;
     }
 
     .contact-links a {
         width: 100%;
-        justify-content: center;
+        text-align: center;
+        display: block;
     }
 }
 
-/* --- Ajuste fino para celulares chicos (Menores a 480px) --- */
+/* --- Ajuste fino para celulares muy chicos (Menores a 480px) --- */
 @media (max-width: 480px) {
     .hero-left h1 {
-        font-size: 32px;
+        font-size: 34px !important;
     }
 
     .hero-stats {
-        flex-direction: column;
-        gap: 12px;
+        flex-direction: column !important;
+        gap: 15px;
     }
 
     .hero-buttons {
-        flex-direction: column;
+        flex-direction: column !important;
+        gap: 15px;
     }
 
     .btn-primary, 
     .btn-secondary {
         width: 100%;
+        text-align: center;
+    }
+    
+    section {
+        padding: 80px 0 !important; /* Optimiza los espacios verticales */
     }
 }
